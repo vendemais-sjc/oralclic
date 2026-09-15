@@ -328,53 +328,56 @@
         transform:scale(1.1);
     }
 
-    /* ================= CONTROLES ================= */
+    /* ==========================================================
+       CONTROLES — REDUZIDO PELA METADE
+       ========================================================== */
     #controles{
-        position:fixed;left:16px;bottom:16px;z-index:20;
-        display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-        max-width:calc(100vw - 380px);
-        padding:10px 14px;
-        border-radius:50px;
+        position:fixed;left:12px;bottom:12px;z-index:20;
+        display:flex;align-items:center;gap:4px;flex-wrap:wrap;
+        max-width:calc(100vw - 340px);
+        padding:5px 7px;
+        border-radius:25px;
         background:var(--vidro);
         border:1px solid var(--borda);
-        box-shadow:0 8px 32px rgba(0,0,0,.5);
+        box-shadow:0 6px 20px rgba(0,0,0,.5);
         transition:opacity .3s ease,transform .3s ease;
-        backdrop-filter:blur(10px);
+        backdrop-filter:blur(8px);
         opacity:.75;
     }
     #controles:hover{ opacity:1 }
 
     #controles input[type="text"]{
-        width:200px;
-        padding:7px 14px;
-        border-radius:30px;
+        width:110px;
+        padding:4px 8px;
+        border-radius:15px;
         border:1px solid rgba(255,255,255,.12);
         background:rgba(255,255,255,.06);
-        color:#fff;font-size:13px;
+        color:#fff;font-size:11px;
         outline:none;transition:.3s;
     }
     #controles input[type="text"]:focus{
         background:rgba(255,255,255,.14);
         border-color:rgba(77,171,247,.5);
+        width:140px;
     }
-    #controles input::placeholder{color:#888}
+    #controles input::placeholder{color:#888;font-size:10px}
 
     #controles button{
-        padding:6px 13px;
-        border:0;border-radius:30px;
-        font-size:13px;font-weight:600;
+        padding:3px 8px;
+        border:0;border-radius:15px;
+        font-size:11px;font-weight:600;
         color:#fff;cursor:pointer;
         transition:all .25s ease;
-        letter-spacing:.3px;
+        letter-spacing:.2px;
         background:rgba(255,255,255,.10);
     }
     #controles button.primario{
         background:linear-gradient(135deg,rgba(77,171,247,.85),rgba(11,107,191,.85));
-        box-shadow:0 3px 12px rgba(77,171,247,.2);
+        box-shadow:0 2px 8px rgba(77,171,247,.2);
     }
     #controles button.primario:hover{
         transform:translateY(-1px) scale(1.03);
-        box-shadow:0 5px 18px rgba(77,171,247,.4);
+        box-shadow:0 4px 12px rgba(77,171,247,.4);
     }
     #controles button.secundario{background:rgba(255,255,255,.09)}
     #controles button.secundario:hover{background:rgba(255,255,255,.2)}
@@ -385,22 +388,22 @@
     #controles button:active{transform:scale(.95)}
 
     #status{
-        padding:4px 12px;
-        border-radius:20px;
+        padding:2px 8px;
+        border-radius:12px;
         background:rgba(0,0,0,.3);
         border:1px solid rgba(255,255,255,.05);
-        font-size:12px;color:#aaa;
-        min-width:110px;text-align:center;
+        font-size:10px;color:#aaa;
+        min-width:60px;text-align:center;
     }
 
     #tocandoAgora{
-        position:fixed;left:16px;bottom:80px;z-index:19;
+        position:fixed;left:12px;bottom:52px;z-index:19;
         max-width:min(60vw,700px);
-        padding:5px 14px;
-        border-radius:20px;
+        padding:3px 10px;
+        border-radius:15px;
         background:rgba(0,0,0,.5);
         border:1px solid rgba(255,255,255,.07);
-        font-size:12px;color:#ddd;
+        font-size:11px;color:#ddd;
         white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
         opacity:0;transition:opacity .4s ease;
         pointer-events:none;
@@ -435,7 +438,7 @@
             left:10px;right:10px;bottom:10px;
             width:auto;max-width:none;
             flex-direction:column;align-items:stretch;
-            border-radius:20px;padding:10px 12px;
+            border-radius:18px;padding:6px 8px;
             opacity:.9;
         }
         #controles input[type="text"]{width:100%}
@@ -443,8 +446,9 @@
         #status{width:100%}
 
         #tocandoAgora{
-            left:10px;right:10px;bottom:auto;top:66px;
+            left:10px;right:10px;bottom:auto;top:56px;
             max-width:none;
+            font-size:10px;
         }
         #btnFullscreen{width:30px;height:30px;font-size:13px;top:10px;right:10px}
         #btnSomVideo{width:30px;height:30px;font-size:12px;top:10px;right:46px}
@@ -464,10 +468,10 @@
         <span>
             <i>🦷</i> PROMOÇÃO: <span class="preco">LIMPEZA APENAS R$ 100,00</span> — <span class="aviso">SOMENTE ESTE MÊS!</span> <i>🦷</i>
             <span class="aviso">⚠️ ATENÇÃO:</span> O BRAQUETE QUE SOLTA É COBRADO <span class="preco">R$ 5,00 CADA</span> <span class="aviso">⚠️</span>
-            <i>✨</i> ORALCLIC — SEU SORRISO EM BOAS MÃOS <i>✨</i>
+            <i>✨</i> ORALCLIP — SEU SORRISO EM BOAS MÃOS <i>✨</i>
             <i>🦷</i> PROMOÇÃO: <span class="preco">LIMPEZA APENAS R$ 100,00</span> — <span class="aviso">SOMENTE ESTE MÊS!</span> <i>🦷</i>
             <span class="aviso">⚠️ ATENÇÃO:</span> O BRAQUETE QUE SOLTA É COBRADO <span class="preco">R$ 5,00 CADA</span> <span class="aviso">⚠️</span>
-            <i>✨</i> ORALCLIC — SEU SORRISO EM BOAS MÃOS <i>✨</i>
+            <i>✨</i> ORALCLIP — SEU SORRISO EM BOAS MÃOS <i>✨</i>
         </span>
         <span>
             <i>🦷</i> PROMOÇÃO: <span class="preco">LIMPEZA APENAS R$ 100,00</span> — <span class="aviso">SOMENTE ESTE MÊS!</span> <i>🦷</i>
@@ -518,7 +522,7 @@
 <!-- ============ TOCANDO AGORA ============ -->
 <div id="tocandoAgora"></div>
 
-<!-- ============ CONTROLES ============ -->
+<!-- ============ CONTROLES (reduzidos) ============ -->
 <div id="controles">
     <input type="text" id="urlMusica" placeholder="Link do YouTube / YouTube Music"
            spellcheck="false" autocomplete="off" aria-label="URL da música ou playlist">
@@ -542,7 +546,7 @@
        1. CONFIGURAÇÃO
        ========================================================== */
     const CONFIG = {
-        urlPadrao: 'https://music.youtube.com/playlist?list=PLKtd0LO43TTY&si=Prt-AD80ULnI3znl',
+        urlPadrao: 'https://music.youtube.com/playlist?list=PLKMvkOHqNX9uajhjIxBVDwHCJNATNwRP5',
         chaveStorage: 'oralclip.musica.url',
         volumeInicial: 70,
         passoSeek: 10,

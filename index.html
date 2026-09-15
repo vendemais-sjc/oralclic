@@ -3,15 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart TV — Música + Produtos</title>
+<title>OralClip — Smart TV</title>
 <style>
     /* ================= VARIÁVEIS ================= */
     :root{
         --dourado:#ffd93d;
-        --vidro:rgba(0,0,0,.72);
-        --borda:rgba(255,255,255,.12);
-        --raio:16px;
+        --vidro:rgba(0,0,0,.55);
+        --borda:rgba(255,255,255,.10);
+        --raio:14px;
         --transicao:.3s cubic-bezier(.175,.885,.32,1.275);
+        --azul:#4dabf7;
+        --verde:#51cf66;
     }
 
     /* ================= RESET ================= */
@@ -24,7 +26,7 @@
         height:100vh;height:100dvh;width:100vw;
     }
 
-    /* ================= VÍDEO PRINCIPAL (oral.mp4) ================= */
+    /* ================= VÍDEO PRINCIPAL ================= */
     #videoProdutos{
         position:fixed;inset:0;
         width:100%;height:100%;
@@ -36,7 +38,7 @@
     body.sem-video #videoProdutos{display:none}
     body.sem-video::before{
         content:'';position:fixed;inset:0;z-index:0;
-        background:linear-gradient(120deg,#1a0033,#003049,#3d0000,#1a0033);
+        background:linear-gradient(120deg,#0d1b2a,#1b3a4b,#0d1b2a,#1b3a4b);
         background-size:400% 400%;
         animation:fundoFallback 24s ease infinite;
     }
@@ -50,27 +52,27 @@
     #letreiro{
         position:fixed;top:0;left:0;width:100%;
         z-index:15;
-        padding:14px 0;
+        padding:12px 0;
         overflow:hidden;
-        background:linear-gradient(135deg,rgba(0,0,0,.75),rgba(0,0,0,.35) 50%,rgba(0,0,0,.75));
-        border-bottom:2px solid rgba(255,215,0,.3);
-        box-shadow:0 4px 30px rgba(0,0,0,.55);
+        background:linear-gradient(135deg,rgba(0,0,0,.85),rgba(0,0,0,.55) 50%,rgba(0,0,0,.85));
+        border-bottom:2px solid rgba(77,171,247,.45);
+        box-shadow:0 4px 30px rgba(0,0,0,.6);
         transition:opacity .3s ease;
     }
     #letreiro-faixa{
         display:flex;
         width:max-content;
         will-change:transform;
-        animation:rolar 45s linear infinite;
+        animation:rolar 55s linear infinite;
     }
     #letreiro-faixa span{
         flex:none;
-        padding-right:70px;
+        padding-right:60px;
         white-space:nowrap;
-        font-size:clamp(1.1rem,2.2vw,2.1rem);
+        font-size:clamp(1rem,1.9vw,1.8rem);
         font-weight:700;
-        letter-spacing:3px;
-        background:linear-gradient(90deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#ff6b6b);
+        letter-spacing:2px;
+        background:linear-gradient(90deg,#4dabf7,#ffd93d,#51cf66,#4dabf7);
         background-size:300% 100%;
         -webkit-background-clip:text;
         background-clip:text;
@@ -81,7 +83,17 @@
         font-style:normal;
         -webkit-text-fill-color:initial;
         color:var(--dourado);
-        margin:0 12px;
+        margin:0 10px;
+    }
+    #letreiro-faixa span .aviso{
+        -webkit-text-fill-color:initial;
+        color:#ff6b6b;
+        font-weight:800;
+    }
+    #letreiro-faixa span .preco{
+        -webkit-text-fill-color:initial;
+        color:#51cf66;
+        font-weight:800;
     }
     @keyframes rolar{
         from{transform:translate3d(0,0,0)}
@@ -93,7 +105,7 @@
     }
 
     /* ==========================================================
-       TELA DE BOAS-VINDAS (aparece depois do vídeo principal)
+       TELA DE BOAS-VINDAS — FUNDO CLARO
        ========================================================== */
     #boasVindas{
         position:fixed;inset:0;
@@ -102,18 +114,19 @@
         flex-direction:column;
         align-items:center;
         justify-content:center;
-        gap:clamp(14px,2.6vh,32px);
+        gap:clamp(12px,2.2vh,28px);
         padding:clamp(24px,5vh,80px) clamp(20px,6vw,100px);
         text-align:center;
         background:
-            radial-gradient(circle at 50% 38%, rgba(40,20,70,.85), rgba(0,0,0,.96) 70%),
-            rgba(0,0,0,.6);
-        backdrop-filter:blur(14px);
-        -webkit-backdrop-filter:blur(14px);
+            radial-gradient(circle at 50% 35%, rgba(255,255,255,.97), rgba(230,242,255,.94) 60%, rgba(200,225,250,.92) 100%);
+        backdrop-filter:blur(18px);
+        -webkit-backdrop-filter:blur(18px);
+        color:#123;
         opacity:0;
         visibility:hidden;
         pointer-events:none;
         transition:opacity .9s ease, visibility .9s ease;
+        box-shadow:inset 0 0 120px rgba(77,171,247,.15);
     }
     #boasVindas.visivel{
         opacity:1;
@@ -121,25 +134,27 @@
         pointer-events:auto;
     }
 
-    /* ---------- LOGO (vídeo logoc.mp4 + fallback logoc.png) ---------- */
+    /* borda decorativa superior */
+    #boasVindas::before{
+        content:'';
+        position:absolute;top:0;left:0;right:0;height:6px;
+        background:linear-gradient(90deg,#4dabf7,#51cf66,#ffd93d,#4dabf7);
+        background-size:300% 100%;
+        animation:gradiente 4s ease-in-out infinite;
+    }
+
+    /* ---------- LOGO ---------- */
     .bv-logo{
-        position:relative;
-        width:clamp(120px,22vh,260px);
-        height:clamp(120px,22vh,260px);
+        width:clamp(120px,20vh,240px);
+        height:clamp(120px,20vh,240px);
         display:flex;align-items:center;justify-content:center;
-        filter:drop-shadow(0 12px 45px rgba(255,215,0,.35));
+        filter:drop-shadow(0 14px 40px rgba(77,171,247,.35));
         animation:logoEntra 1s cubic-bezier(.175,.885,.32,1.275) both;
     }
-    .bv-logo video,
     .bv-logo img{
-        position:absolute;inset:0;
         width:100%;height:100%;
         object-fit:contain;
-        background:transparent;
     }
-    .bv-logo img{ z-index:1 } /* PNG fica por cima se o vídeo não tiver alpha */
-    .bv-logo video.ok + img{ display:none } /* vídeo carregou: esconde o PNG */
-
     @keyframes logoEntra{
         from{opacity:0;transform:scale(.55) translateY(18px)}
         to  {opacity:1;transform:scale(1) translateY(0)}
@@ -151,20 +166,18 @@
         font-weight:800;
         letter-spacing:1px;
         line-height:1.05;
-        background:linear-gradient(90deg,#ffd93d,#ff8c42,#ffd93d);
+        background:linear-gradient(90deg,#0b6bbf,#4dabf7,#0b6bbf);
         background-size:200% 100%;
         -webkit-background-clip:text;
         background-clip:text;
         -webkit-text-fill-color:transparent;
-        animation:gradiente 4s ease-in-out infinite;
-        text-shadow:0 0 60px rgba(255,215,0,.15);
-        animation-delay:.15s;
+        animation:gradiente 4s ease-in-out infinite, sobe .8s ease .1s both;
     }
     .bv-sub{
-        font-size:clamp(1rem,2.6vw,2.1rem);
-        color:#f2f2f2;
-        font-weight:400;
-        max-width:22ch;
+        font-size:clamp(1rem,2.6vw,2rem);
+        color:#234;
+        font-weight:500;
+        max-width:24ch;
         animation:sobe .8s ease .3s both;
     }
 
@@ -173,20 +186,21 @@
         display:flex;
         flex-wrap:wrap;
         justify-content:center;
-        gap:clamp(12px,2.5vw,32px);
-        margin-top:clamp(6px,1.5vh,18px);
+        gap:clamp(12px,2.5vw,28px);
+        margin-top:clamp(6px,1.5vh,16px);
         animation:sobe .8s ease .5s both;
     }
     .bv-chip{
         display:flex;align-items:center;gap:12px;
-        padding:clamp(10px,1.6vh,18px) clamp(18px,3vw,36px);
+        padding:clamp(10px,1.6vh,18px) clamp(18px,3vw,32px);
         border-radius:60px;
-        background:rgba(255,255,255,.08);
-        border:1px solid rgba(255,255,255,.16);
-        box-shadow:0 8px 30px rgba(0,0,0,.35);
-        font-size:clamp(.95rem,2.2vw,1.7rem);
+        background:rgba(255,255,255,.85);
+        border:1.5px solid rgba(77,171,247,.35);
+        box-shadow:0 8px 26px rgba(30,80,140,.15);
+        font-size:clamp(.9rem,2.1vw,1.55rem);
         font-weight:600;
-        letter-spacing:.5px;
+        letter-spacing:.4px;
+        color:#123;
         backdrop-filter:blur(6px);
         animation:pulsa 3.6s ease-in-out infinite;
     }
@@ -194,53 +208,61 @@
     .bv-chip .emoji{
         font-size:1.35em;
         line-height:1;
-        filter:drop-shadow(0 0 14px rgba(120,200,255,.5));
     }
-    .bv-chip strong{ color:var(--dourado) }
+    .bv-chip strong{ color:#0b6bbf }
+    .bv-chip .senha{
+        font-family:'Courier New',monospace;
+        font-weight:800;
+        background:rgba(77,171,247,.15);
+        padding:2px 10px;
+        border-radius:8px;
+        color:#0b6bbf;
+        letter-spacing:.5px;
+    }
 
     @keyframes sobe{
         from{opacity:0;transform:translateY(22px)}
         to  {opacity:1;transform:translateY(0)}
     }
     @keyframes pulsa{
-        0%,100%{transform:translateY(0);   box-shadow:0 8px 30px rgba(0,0,0,.35)}
-        50%    {transform:translateY(-4px);box-shadow:0 14px 40px rgba(255,215,0,.18)}
+        0%,100%{transform:translateY(0);   box-shadow:0 8px 26px rgba(30,80,140,.15)}
+        50%    {transform:translateY(-4px);box-shadow:0 14px 34px rgba(77,171,247,.25)}
     }
 
-    /* ---------- DICA DE REINÍCIO ---------- */
+    /* ---------- DICA ---------- */
     .bv-dica{
-        margin-top:clamp(8px,2vh,22px);
-        font-size:clamp(.75rem,1.5vw,1rem);
-        color:#9a9a9a;
+        margin-top:clamp(8px,2vh,20px);
+        font-size:clamp(.75rem,1.4vw,.95rem);
+        color:#567;
         letter-spacing:1px;
         text-transform:uppercase;
         animation:pisca 2.4s ease-in-out infinite;
     }
-    @keyframes pisca{0%,100%{opacity:.35}50%{opacity:1}}
+    @keyframes pisca{0%,100%{opacity:.4}50%{opacity:1}}
 
-    /* ================= PLAYER (palco) ================= */
+    /* ================= PLAYER ================= */
     #palcoMusica{
         position:fixed;
-        right:20px;bottom:20px;
-        width:340px;height:191px;
+        right:16px;bottom:16px;
+        width:320px;height:180px;
         z-index:10;
         border-radius:var(--raio);
         overflow:hidden;
         background:#000;
-        border:2px solid rgba(255,255,255,.25);
+        border:1.5px solid rgba(255,255,255,.18);
         box-shadow:0 10px 40px rgba(0,0,0,.8);
         transition:width var(--transicao),height var(--transicao),border-color .3s;
     }
     #palcoMusica.expandido{
         width:min(78vw,900px);
         height:min(52vh,506px);
-        border-color:rgba(255,215,0,.55);
+        border-color:rgba(77,171,247,.5);
     }
     @media (hover:hover) and (min-width:1000px){
         #palcoMusica:hover{
-            width:min(62vw,620px);
-            height:min(40vh,349px);
-            border-color:rgba(255,215,0,.55);
+            width:min(60vw,600px);
+            height:min(38vh,338px);
+            border-color:rgba(77,171,247,.5);
         }
     }
     #playerYouTube{
@@ -250,128 +272,142 @@
         border:0;
     }
 
-    /* botão "iniciar" sobre o player */
     #btnIniciar{
         position:absolute;inset:0;
         z-index:3;
-        display:flex;align-items:center;justify-content:center;gap:10px;
+        display:flex;align-items:center;justify-content:center;gap:8px;
         border:0;cursor:pointer;
-        background:rgba(0,0,0,.6);
-        color:#fff;font-size:1.05rem;font-weight:700;letter-spacing:.5px;
+        background:rgba(0,0,0,.55);
+        color:#fff;font-size:.95rem;font-weight:700;letter-spacing:.5px;
         transition:opacity .3s ease,visibility .3s ease;
     }
     #btnIniciar.escondido{opacity:0;visibility:hidden;pointer-events:none}
-    #btnIniciar:hover{background:rgba(0,0,0,.45)}
+    #btnIniciar:hover{background:rgba(0,0,0,.4)}
 
-    /* botão expandir/recolher */
     #btnExpandir{
-        position:absolute;top:8px;right:8px;
+        position:absolute;top:6px;right:6px;
         z-index:4;
-        width:34px;height:34px;
-        border:0;border-radius:10px;
-        background:rgba(0,0,0,.6);
-        color:#fff;font-size:1rem;cursor:pointer;
-        transition:background .25s,transform .25s;
+        width:28px;height:28px;
+        border:0;border-radius:8px;
+        background:rgba(0,0,0,.4);
+        color:rgba(255,255,255,.75);
+        font-size:.85rem;cursor:pointer;
+        transition:background .25s,transform .25s,opacity .25s;
+        opacity:.6;
     }
-    #btnExpandir:hover{background:rgba(255,215,0,.25);transform:scale(1.08)}
+    #btnExpandir:hover{
+        background:rgba(77,171,247,.3);
+        opacity:1;
+        transform:scale(1.08);
+    }
 
-    /* ================= BOTÕES FLUTUANTES (topo direito) ================= */
+    /* ================= BOTÕES FLUTUANTES (pequenos e transparentes) ================= */
     #btnFullscreen,
     #btnSomVideo{
-        position:fixed;top:20px;
+        position:fixed;top:14px;
         z-index:30;
-        width:48px;height:48px;
+        width:34px;height:34px;
         border-radius:50%;
-        border:1px solid rgba(255,255,255,.15);
-        background:rgba(0,0,0,.6);
-        color:#fff;font-size:22px;cursor:pointer;
+        border:1px solid rgba(255,255,255,.12);
+        background:rgba(0,0,0,.28);
+        color:rgba(255,255,255,.7);
+        font-size:15px;cursor:pointer;
         display:flex;align-items:center;justify-content:center;
         transition:all .3s ease;
+        opacity:.5;
+        backdrop-filter:blur(4px);
     }
-    #btnFullscreen{right:20px}
-    #btnSomVideo{right:78px;font-size:19px}
+    #btnFullscreen{right:14px}
+    #btnSomVideo{right:56px;font-size:14px}
     #btnFullscreen:hover,
     #btnSomVideo:hover{
-        background:rgba(255,215,0,.2);
-        border-color:var(--dourado);
+        background:rgba(77,171,247,.25);
+        border-color:rgba(77,171,247,.6);
+        color:#fff;
+        opacity:1;
         transform:scale(1.1);
     }
 
     /* ================= CONTROLES ================= */
     #controles{
-        position:fixed;left:20px;bottom:20px;z-index:20;
-        display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-        max-width:calc(100vw - 420px);
-        padding:14px 20px;
-        border-radius:60px;
+        position:fixed;left:16px;bottom:16px;z-index:20;
+        display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+        max-width:calc(100vw - 380px);
+        padding:10px 14px;
+        border-radius:50px;
         background:var(--vidro);
         border:1px solid var(--borda);
-        box-shadow:0 8px 32px rgba(0,0,0,.6);
+        box-shadow:0 8px 32px rgba(0,0,0,.5);
         transition:opacity .3s ease,transform .3s ease;
+        backdrop-filter:blur(10px);
+        opacity:.75;
     }
+    #controles:hover{ opacity:1 }
+
     #controles input[type="text"]{
-        width:230px;
-        padding:9px 16px;
+        width:200px;
+        padding:7px 14px;
         border-radius:30px;
-        border:1px solid rgba(255,255,255,.15);
-        background:rgba(255,255,255,.08);
-        color:#fff;font-size:14px;
+        border:1px solid rgba(255,255,255,.12);
+        background:rgba(255,255,255,.06);
+        color:#fff;font-size:13px;
         outline:none;transition:.3s;
     }
     #controles input[type="text"]:focus{
-        background:rgba(255,255,255,.16);
-        border-color:rgba(255,215,0,.5);
+        background:rgba(255,255,255,.14);
+        border-color:rgba(77,171,247,.5);
     }
     #controles input::placeholder{color:#888}
 
     #controles button{
-        padding:8px 16px;
+        padding:6px 13px;
         border:0;border-radius:30px;
-        font-size:14px;font-weight:600;
+        font-size:13px;font-weight:600;
         color:#fff;cursor:pointer;
         transition:all .25s ease;
-        letter-spacing:.4px;
+        letter-spacing:.3px;
+        background:rgba(255,255,255,.10);
     }
     #controles button.primario{
-        background:linear-gradient(135deg,#ff0000,#cc0000);
-        box-shadow:0 4px 15px rgba(255,0,0,.25);
+        background:linear-gradient(135deg,rgba(77,171,247,.85),rgba(11,107,191,.85));
+        box-shadow:0 3px 12px rgba(77,171,247,.2);
     }
     #controles button.primario:hover{
-        transform:translateY(-2px) scale(1.04);
-        box-shadow:0 6px 25px rgba(255,0,0,.45);
+        transform:translateY(-1px) scale(1.03);
+        box-shadow:0 5px 18px rgba(77,171,247,.4);
     }
-    #controles button.secundario{background:rgba(255,255,255,.12)}
-    #controles button.secundario:hover{background:rgba(255,255,255,.22)}
+    #controles button.secundario{background:rgba(255,255,255,.09)}
+    #controles button.secundario:hover{background:rgba(255,255,255,.2)}
     #controles button.ativo{
-        background:rgba(255,215,0,.28);
-        box-shadow:0 0 0 1px rgba(255,215,0,.5);
+        background:rgba(77,171,247,.28);
+        box-shadow:0 0 0 1px rgba(77,171,247,.5);
     }
     #controles button:active{transform:scale(.95)}
 
     #status{
-        padding:5px 14px;
+        padding:4px 12px;
         border-radius:20px;
-        background:rgba(0,0,0,.4);
-        border:1px solid rgba(255,255,255,.06);
-        font-size:13px;color:#aaa;
-        min-width:120px;text-align:center;
+        background:rgba(0,0,0,.3);
+        border:1px solid rgba(255,255,255,.05);
+        font-size:12px;color:#aaa;
+        min-width:110px;text-align:center;
     }
 
     #tocandoAgora{
-        position:fixed;left:20px;bottom:96px;z-index:19;
+        position:fixed;left:16px;bottom:80px;z-index:19;
         max-width:min(60vw,700px);
-        padding:6px 16px;
+        padding:5px 14px;
         border-radius:20px;
-        background:rgba(0,0,0,.55);
-        border:1px solid rgba(255,255,255,.08);
-        font-size:13px;color:#ddd;
+        background:rgba(0,0,0,.5);
+        border:1px solid rgba(255,255,255,.07);
+        font-size:12px;color:#ddd;
         white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
         opacity:0;transition:opacity .4s ease;
         pointer-events:none;
     }
     #tocandoAgora.visivel{opacity:1}
 
-    /* ================= MODO "UI OCULTA" (tecla H) ================= */
+    /* ================= MODO UI OCULTA ================= */
     body.ui-oculta #controles,
     body.ui-oculta #letreiro,
     body.ui-oculta #btnFullscreen,
@@ -392,25 +428,26 @@
 
     /* ================= RESPONSIVO ================= */
     @media (max-width:900px){
-        #palcoMusica{width:200px;height:113px;bottom:12px;right:12px}
-        #palcoMusica.expandido{width:calc(100vw - 24px);height:56vw}
+        #palcoMusica{width:180px;height:101px;bottom:10px;right:10px}
+        #palcoMusica.expandido{width:calc(100vw - 20px);height:56vw}
 
         #controles{
-            left:12px;right:12px;bottom:12px;
+            left:10px;right:10px;bottom:10px;
             width:auto;max-width:none;
             flex-direction:column;align-items:stretch;
-            border-radius:22px;padding:12px 14px;
+            border-radius:20px;padding:10px 12px;
+            opacity:.9;
         }
         #controles input[type="text"]{width:100%}
         #controles button{width:100%;text-align:center}
         #status{width:100%}
 
         #tocandoAgora{
-            left:12px;right:12px;bottom:auto;top:76px;
+            left:10px;right:10px;bottom:auto;top:66px;
             max-width:none;
         }
-        #btnFullscreen{width:40px;height:40px;font-size:18px;top:12px;right:12px}
-        #btnSomVideo{width:40px;height:40px;font-size:16px;top:12px;right:60px}
+        #btnFullscreen{width:30px;height:30px;font-size:13px;top:10px;right:10px}
+        #btnSomVideo{width:30px;height:30px;font-size:12px;top:10px;right:46px}
     }
 </style>
 </head>
@@ -425,22 +462,20 @@
 <div id="letreiro" aria-hidden="true">
     <div id="letreiro-faixa">
         <span>
-            <i>✨</i> AMOR &bull; MÚSICA &bull; EMOÇÃO &bull;
-            <i>🎵</i> VIVENDO CADA MOMENTO <i>🎵</i> &bull;
-            AMOR &bull; MÚSICA &bull; EMOÇÃO &bull;
-            <i>🎶</i> PARA SEMPRE <i>🎶</i> &bull;
-            AMOR &bull; MÚSICA &bull; EMOÇÃO &bull;
-            <i>❤️</i> FELICIDADE <i>❤️</i> &bull;
-            AMOR &bull; MÚSICA &bull; EMOÇÃO &bull;
+            <i>🦷</i> PROMOÇÃO: <span class="preco">LIMPEZA APENAS R$ 100,00</span> — <span class="aviso">SOMENTE ESTE MÊS!</span> <i>🦷</i>
+            <span class="aviso">⚠️ ATENÇÃO:</span> O BRAQUETE QUE SOLTA É COBRADO <span class="preco">R$ 5,00 CADA</span> <span class="aviso">⚠️</span>
+            <i>✨</i> ORALCLIP — SEU SORRISO EM BOAS MÃOS <i>✨</i>
+            <i>🦷</i> PROMOÇÃO: <span class="preco">LIMPEZA APENAS R$ 100,00</span> — <span class="aviso">SOMENTE ESTE MÊS!</span> <i>🦷</i>
+            <span class="aviso">⚠️ ATENÇÃO:</span> O BRAQUETE QUE SOLTA É COBRADO <span class="preco">R$ 5,00 CADA</span> <span class="aviso">⚠️</span>
+            <i>✨</i> ORALCLIP — SEU SORRISO EM BOAS MÃOS <i>✨</i>
         </span>
         <span>
-            <i>✨</i> AMOR &bull; MÚSICA &bull; EMOÇÃO &bull;
-            <i>🎵</i> VIVENDO CADA MOMENTO <i>🎵</i> &bull;
-            AMOR &bull; MÚSICA &bull; EMOÇÃO &bull;
-            <i>🎶</i> PARA SEMPRE <i>🎶</i> &bull;
-            AMOR &bull; MÚSICA &bull; EMOÇÃO &bull;
-            <i>❤️</i> FELICIDADE <i>❤️</i> &bull;
-            AMOR &bull; MÚSICA &bull; EMOÇÃO &bull;
+            <i>🦷</i> PROMOÇÃO: <span class="preco">LIMPEZA APENAS R$ 100,00</span> — <span class="aviso">SOMENTE ESTE MÊS!</span> <i>🦷</i>
+            <span class="aviso">⚠️ ATENÇÃO:</span> O BRAQUETE QUE SOLTA É COBRADO <span class="preco">R$ 5,00 CADA</span> <span class="aviso">⚠️</span>
+            <i>✨</i> ORALCLIP — SEU SORRISO EM BOAS MÃOS <i>✨</i>
+            <i>🦷</i> PROMOÇÃO: <span class="preco">LIMPEZA APENAS R$ 100,00</span> — <span class="aviso">SOMENTE ESTE MÊS!</span> <i>🦷</i>
+            <span class="aviso">⚠️ ATENÇÃO:</span> O BRAQUETE QUE SOLTA É COBRADO <span class="preco">R$ 5,00 CADA</span> <span class="aviso">⚠️</span>
+            <i>✨</i> ORALCLIP — SEU SORRISO EM BOAS MÃOS <i>✨</i>
         </span>
     </div>
 </div>
@@ -448,20 +483,22 @@
 <!-- ============ TELA DE BOAS-VINDAS ============ -->
 <div id="boasVindas" role="region" aria-label="Mensagem de boas-vindas">
 
-    <!-- Logo: vídeo (logoc.mp4) com fallback para PNG (logoc.png) -->
     <div class="bv-logo">
-        <video id="logoVideo" autoplay muted loop playsinline preload="auto">
-            <source src="logoc.mp4" type="video/mp4">
-        </video>
-        <img id="logoImg" src="logoc.png" alt="Logo">
+        <img src="logoc.png" alt="Logo OralClip">
     </div>
 
-    <h1 class="bv-titulo">Seja bem-vindo!</h1>
+    <h1 class="bv-titulo">Seja bem-vindo! 🦷</h1>
     <p class="bv-sub">Em breve você será atendido</p>
 
     <div class="bv-chips">
-        <div class="bv-chip"><span class="emoji">💧</span> <span><strong>Água</strong> à disposição</span></div>
-        <div class="bv-chip"><span class="emoji">📶</span> <span><strong>Wi-Fi</strong> liberado</span></div>
+        <div class="bv-chip">
+            <span class="emoji">💧</span>
+            <span><strong>Água</strong> à disposição</span>
+        </div>
+        <div class="bv-chip">
+            <span class="emoji">📶</span>
+            <span><strong>Wi-Fi:</strong> <span class="senha">2025@oralclip2025...</span></span>
+        </div>
     </div>
 
     <p class="bv-dica">toque na tela para reiniciar</p>
@@ -483,7 +520,7 @@
 
 <!-- ============ CONTROLES ============ -->
 <div id="controles">
-    <input type="text" id="urlMusica" placeholder="Cole o link do YouTube / YouTube Music"
+    <input type="text" id="urlMusica" placeholder="Link do YouTube / YouTube Music"
            spellcheck="false" autocomplete="off" aria-label="URL da música ou playlist">
     <button id="btnCarregar" class="primario" type="button">▶ Carregar</button>
     <button id="btnPlayPause" class="secundario" type="button">⏸ Pausar</button>
@@ -506,28 +543,23 @@
        ========================================================== */
     const CONFIG = {
         urlPadrao: 'https://music.youtube.com/playlist?list=PLKMvkOHqNX9uajhjIxBVDwHCJNATNwRP5',
-        chaveStorage: 'smarttv.musica.url',
+        chaveStorage: 'oralclip.musica.url',
         volumeInicial: 70,
         passoSeek: 10,
         passoVolume: 5,
-        tempoBoasVindas: 15000   // ms que a tela de boas-vindas fica visível
+        tempoBoasVindas: 15000
     };
 
     const ERROS = {
-        2:   'ID de vídeo inválido',
-        5:   'Formato não suportado',
-        100: 'Vídeo não encontrado ou privado',
-        101: 'O dono não permite incorporar este vídeo',
-        150: 'O dono não permite incorporar este vídeo'
+        2:'ID inválido', 5:'Formato não suportado',
+        100:'Vídeo não encontrado ou privado',
+        101:'Incorporação não permitida',
+        150:'Incorporação não permitida'
     };
 
     const ESTADOS = {
-        '-1': 'Não iniciado',
-        0:    'Terminado',
-        1:    'Tocando',
-        2:    'Pausado',
-        3:    'Carregando…',
-        5:    'Pronto'
+        '-1':'Não iniciado', 0:'Terminado', 1:'Tocando',
+        2:'Pausado', 3:'Carregando…', 5:'Pronto'
     };
 
     /* ==========================================================
@@ -537,7 +569,6 @@
 
     const videoProd    = $('videoProdutos');
     const boasVindas   = $('boasVindas');
-    const logoVideo    = $('logoVideo');
     const palco        = $('palcoMusica');
     const urlInput     = $('urlMusica');
     const statusEl     = $('status');
@@ -556,14 +587,9 @@
     /* ==========================================================
        3. ESTADO
        ========================================================== */
-    let player        = null;
-    let pronto        = false;
-    let jaTocou       = false;
-    let tipoAtual     = null;   // 'video' | 'playlist'
-    let aleatorioOn   = false;
-    let mudoOn        = false;
-    let volumeAntes   = CONFIG.volumeInicial;
-    let timerBoasVindas = null;
+    let player = null, pronto = false, jaTocou = false;
+    let tipoAtual = null, aleatorioOn = false, mudoOn = false;
+    let volumeAntes = CONFIG.volumeInicial, timerBoasVindas = null;
 
     const definirStatus = (txt) => { statusEl.textContent = txt; };
 
@@ -575,36 +601,31 @@
         if (!txt) return { tipo: 'invalido' };
 
         if (!txt.includes('/') && !txt.includes('?')) {
-            if (/^[\w-]{11}$/.test(txt))  return { tipo: 'video',    id: txt };
-            if (/^[\w-]{10,}$/.test(txt)) return { tipo: 'playlist', id: txt };
-            return { tipo: 'invalido' };
+            if (/^[\w-]{11}$/.test(txt))  return { tipo:'video',    id:txt };
+            if (/^[\w-]{10,}$/.test(txt)) return { tipo:'playlist', id:txt };
+            return { tipo:'invalido' };
         }
 
         let url;
-        try {
-            url = new URL(/^https?:\/\//i.test(txt) ? txt : 'https://' + txt);
-        } catch { return { tipo: 'invalido' }; }
+        try { url = new URL(/^https?:\/\//i.test(txt) ? txt : 'https://' + txt); }
+        catch { return { tipo:'invalido' }; }
 
         const host   = url.hostname.replace(/^www\./, '');
         const partes = url.pathname.split('/').filter(Boolean);
         const list   = url.searchParams.get('list');
         const index  = url.searchParams.get('index');
-
-        let videoId = url.searchParams.get('v');
+        let videoId  = url.searchParams.get('v');
 
         if (!videoId && host.endsWith('youtu.be')) videoId = partes[0];
-        if (!videoId && (partes[0] === 'shorts' || partes[0] === 'embed' || partes[0] === 'live')) {
-            videoId = partes[1];
-        }
+        if (!videoId && ['shorts','embed','live'].includes(partes[0])) videoId = partes[1];
 
-        if (list) return { tipo: 'playlist', id: list, index: index ? Number(index) : 0 };
-        if (videoId && /^[\w-]{11}$/.test(videoId)) return { tipo: 'video', id: videoId };
-
-        return { tipo: 'invalido' };
+        if (list) return { tipo:'playlist', id:list, index:index ? Number(index) : 0 };
+        if (videoId && /^[\w-]{11}$/.test(videoId)) return { tipo:'video', id:videoId };
+        return { tipo:'invalido' };
     }
 
     /* ==========================================================
-       5. IFRAME: referrerpolicy / allow
+       5. IFRAME
        ========================================================== */
     function ajustarIframe() {
         const f = $('playerYouTube');
@@ -616,24 +637,17 @@
     }
 
     /* ==========================================================
-       6. INICIALIZAÇÃO DO PLAYER
+       6. INICIALIZAÇÃO
        ========================================================== */
     window.onYouTubeIframeAPIReady = function () {
         const playerVars = {
-            autoplay: 0,
-            controls: 1,
-            modestbranding: 1,
-            rel: 0,
-            fs: 0,
-            playsinline: 1,
-            iv_load_policy: 3,
-            enablejsapi: 1
+            autoplay:0, controls:1, modestbranding:1, rel:0, fs:0,
+            playsinline:1, iv_load_policy:3, enablejsapi:1
         };
         if (/^https?:$/.test(location.protocol)) playerVars.origin = location.origin;
 
         player = new YT.Player('playerYouTube', {
-            width: '100%',
-            height: '100%',
+            width:'100%', height:'100%',
             playerVars: playerVars,
             events: {
                 onReady: aoPronto,
@@ -647,27 +661,24 @@
         pronto = true;
         ajustarIframe();
         player.setVolume(CONFIG.volumeInicial);
-
         const salva = localStorage.getItem(CONFIG.chaveStorage) || CONFIG.urlPadrao;
         urlInput.value = salva;
-
         carregar(salva, false);
         definirStatus('Pronto — aperte ▶');
     }
 
     function aoMudarEstado(e) {
-        const codigo = Number(e.data);
-        definirStatus(ESTADOS[codigo] || 'Estado ' + codigo);
-
-        if (codigo === 1) {
+        const c = Number(e.data);
+        definirStatus(ESTADOS[c] || 'Estado ' + c);
+        if (c === 1) {
             jaTocou = true;
             btnIniciar.classList.add('escondido');
             btnPlayPause.textContent = '⏸ Pausar';
             setTimeout(atualizarTitulo, 600);
-        } else if (codigo === 2) {
+        } else if (c === 2) {
             btnPlayPause.textContent = '▶ Retomar';
             if (!jaTocou) btnIniciar.classList.remove('escondido');
-        } else if (codigo === 0) {
+        } else if (c === 0) {
             btnPlayPause.textContent = '▶ Retomar';
             if (tipoAtual === 'video') player.playVideo();
         }
@@ -681,7 +692,7 @@
         try {
             const d = player.getVideoData();
             if (d && d.title) {
-                tocandoEl.textContent = '🎶 ' + d.title;
+                tocandoEl.textContent = '🦷 🎶 ' + d.title;
                 tocandoEl.classList.add('visivel');
                 clearTimeout(atualizarTitulo._t);
                 atualizarTitulo._t = setTimeout(() => tocandoEl.classList.remove('visivel'), 8000);
@@ -690,11 +701,10 @@
     }
 
     /* ==========================================================
-       7. CARREGAR MÚSICA / PLAYLIST
+       7. CARREGAR MÚSICA
        ========================================================== */
     function carregar(entrada, tocarImediato) {
         if (!pronto) { definirStatus('⏳ Aguardando player…'); return; }
-
         const info = analisarUrl(entrada);
         if (info.tipo === 'invalido') { definirStatus('❌ Link inválido'); return; }
 
@@ -711,7 +721,6 @@
             player.cueVideoById({ videoId: info.id, startSeconds: 0 });
             definirStatus('🎵 Vídeo carregado');
         }
-
         if (tocarImediato) tocar();
         setTimeout(ajustarIframe, 400);
     }
@@ -730,15 +739,15 @@
     const proxima  = () => pronto && player.nextVideo();
     const anterior = () => pronto && player.previousVideo();
 
-    function pular(segundos) {
+    function pular(s) {
         if (!pronto) return;
-        player.seekTo(Math.max(0, player.getCurrentTime() + segundos), true);
-        definirStatus((segundos > 0 ? '⏩ +' : '⏪ ') + segundos + 's');
+        player.seekTo(Math.max(0, player.getCurrentTime() + s), true);
+        definirStatus((s > 0 ? '⏩ +' : '⏪ ') + s + 's');
     }
 
-    function ajustarVolume(delta) {
+    function ajustarVolume(d) {
         if (!pronto) return;
-        const v = Math.min(100, Math.max(0, player.getVolume() + delta));
+        const v = Math.min(100, Math.max(0, player.getVolume() + d));
         player.setVolume(v);
         if (v > 0 && mudoOn) alternarMudo();
         definirStatus('🔊 Volume ' + v + '%');
@@ -749,8 +758,7 @@
         mudoOn = !mudoOn;
         if (mudoOn) {
             volumeAntes = player.getVolume() || CONFIG.volumeInicial;
-            player.mute();
-            btnMudo.textContent = '🔇';
+            player.mute(); btnMudo.textContent = '🔇';
         } else {
             player.unMute();
             if (!player.getVolume()) player.setVolume(volumeAntes);
@@ -772,16 +780,14 @@
        ========================================================== */
     function alternarFullscreen() {
         const emFull = document.fullscreenElement || document.webkitFullscreenElement;
-
         if (!emFull) {
             const el = document.documentElement;
             const req = el.requestFullscreen || el.webkitRequestFullscreen;
             if (req) {
                 Promise.resolve(req.call(el)).then(() => {
-                    if (screen.orientation && screen.orientation.lock) {
+                    if (screen.orientation && screen.orientation.lock)
                         screen.orientation.lock('landscape').catch(() => {});
-                    }
-                }).catch(() => definirStatus('Tela cheia bloqueada pelo navegador'));
+                }).catch(() => definirStatus('Tela cheia bloqueada'));
             }
         } else {
             const sair = document.exitFullscreen || document.webkitExitFullscreen;
@@ -790,36 +796,18 @@
     }
 
     /* ==========================================================
-       9. FLUXO: VÍDEO PRINCIPAL → BOAS-VINDAS → REINICIA
+       9. FLUXO VÍDEO → BOAS-VINDAS → REINICIA
        ========================================================== */
-
-    /* Quando o oral.mp4 termina */
     videoProd.addEventListener('ended', mostrarBoasVindas);
-
-    /* Se o oral.mp4 não existir / falhar, mostra boas-vindas depois de um tempo */
     videoProd.addEventListener('error', () => {
         document.body.classList.add('sem-video');
-        console.warn('⚠️ oral.mp4 não pôde ser carregado — indo para boas-vindas.');
+        console.warn('⚠️ oral.mp4 não carregou — indo para boas-vindas.');
         setTimeout(mostrarBoasVindas, 1500);
     }, true);
 
-    /* Se o navegador bloquear o autoplay do vídeo, tenta de novo no 1º clique */
-    videoProd.addEventListener('pause', () => {
-        if (!videoProd.ended && videoProd.currentTime > 0.2) return;
-    });
-
     function mostrarBoasVindas() {
         if (boasVindas.classList.contains('visivel')) return;
-
         boasVindas.classList.add('visivel');
-
-        // reinicia e toca a logo animada
-        try {
-            logoVideo.currentTime = 0;
-            logoVideo.play().catch(() => {});
-        } catch (_) {}
-
-        // agenda o retorno ao vídeo principal
         clearTimeout(timerBoasVindas);
         timerBoasVindas = setTimeout(reiniciarVideoPrincipal, CONFIG.tempoBoasVindas);
     }
@@ -827,36 +815,19 @@
     function reiniciarVideoPrincipal() {
         clearTimeout(timerBoasVindas);
         boasVindas.classList.remove('visivel');
-
-        try { logoVideo.pause(); } catch (_) {}
-
         videoProd.currentTime = 0;
         const p = videoProd.play();
         if (p && p.catch) p.catch(() => {});
     }
 
-    /* Clique/toque em qualquer lugar da tela de boas-vindas reinicia o vídeo */
     boasVindas.addEventListener('click', reiniciarVideoPrincipal);
 
-    /* Logo em vídeo: se carregar, esconde o PNG; se falhar, mostra o PNG */
-    logoVideo.addEventListener('loadeddata', () => {
-        if (logoVideo.videoWidth > 0) logoVideo.classList.add('ok');
-    });
-    setTimeout(() => {
-        if (logoVideo.readyState < 2) {
-            // vídeo da logo não carregou → o PNG (logoc.png) permanece visível
-            logoVideo.style.display = 'none';
-        }
-    }, 2000);
-
-    /* Som do vídeo principal (começa mudo para o autoplay funcionar) */
+    /* Som do vídeo principal */
     btnSomVideo.addEventListener('click', () => {
         videoProd.muted = !videoProd.muted;
         btnSomVideo.textContent = videoProd.muted ? '🔇' : '🔊';
         definirStatus(videoProd.muted ? '🔇 Vídeo sem som' : '🔊 Vídeo com som');
-        if (!videoProd.muted && videoProd.paused) {
-            videoProd.play().catch(() => {});
-        }
+        if (!videoProd.muted && videoProd.paused) videoProd.play().catch(() => {});
     });
 
     /* ==========================================================
@@ -870,7 +841,6 @@
     btnMudo.addEventListener('click', alternarMudo);
     btnFullscreen.addEventListener('click', alternarFullscreen);
     btnExpandir.addEventListener('click', () => palco.classList.toggle('expandido'));
-
     btnCarregar.addEventListener('click', () => carregar(urlInput.value, true));
 
     urlInput.addEventListener('keydown', (e) => {
@@ -879,30 +849,23 @@
     });
 
     /* ==========================================================
-       11. CONTROLE REMOTO / TECLADO
+       11. TECLADO / CONTROLE REMOTO
        ========================================================== */
     document.addEventListener('keydown', (e) => {
         if (document.activeElement === urlInput) return;
-
         switch (e.key) {
-            case ' ':
-            case 'Enter':
-            case 'MediaPlayPause':
+            case ' ': case 'Enter': case 'MediaPlayPause':
                 e.preventDefault(); alternarPlayPause(); break;
-
             case 'ArrowRight': e.preventDefault(); pular(CONFIG.passoSeek); break;
             case 'ArrowLeft':  e.preventDefault(); pular(-CONFIG.passoSeek); break;
             case 'ArrowUp':    e.preventDefault(); ajustarVolume(CONFIG.passoVolume); break;
             case 'ArrowDown':  e.preventDefault(); ajustarVolume(-CONFIG.passoVolume); break;
-
             case 'MediaTrackNext':     case 'n': case 'N': proxima(); break;
             case 'MediaTrackPrevious': case 'p': case 'P': anterior(); break;
-
             case 'f': case 'F': alternarFullscreen(); break;
             case 'm': case 'M': alternarMudo(); break;
             case 'v': case 'V': btnSomVideo.click(); break;
             case 'h': case 'H': document.body.classList.toggle('ui-oculta'); break;
-
             case 'Escape':
                 if (boasVindas.classList.contains('visivel')) reiniciarVideoPrincipal();
                 break;
@@ -913,28 +876,24 @@
        12. ECONOMIA DE RECURSOS
        ========================================================== */
     document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            videoProd.pause();
-        } else if (!boasVindas.classList.contains('visivel')) {
-            videoProd.play().catch(() => {});
-        }
+        if (document.hidden) videoProd.pause();
+        else if (!boasVindas.classList.contains('visivel')) videoProd.play().catch(() => {});
     });
 
     /* ==========================================================
-       13. FALLBACK: API do YouTube não carregou
+       13. FALLBACK API
        ========================================================== */
     setTimeout(() => {
-        if (!window.YT || !window.YT.Player) {
-            definirStatus('❌ Sem conexão com o YouTube');
-        }
+        if (!window.YT || !window.YT.Player) definirStatus('❌ Sem conexão com o YouTube');
     }, 8000);
 
     /* ==========================================================
        14. LOG
        ========================================================== */
-    console.log('🎬 SmartTV iniciada');
+    console.log('🦷 OralClip SmartTV iniciada');
     console.log('📹 Vídeo principal: oral.mp4');
-    console.log('🖼️  Logo: logoc.mp4 (fallback: logoc.png)');
+    console.log('🖼️  Logo: logoc.png');
+    console.log('📶 Wi-Fi: 2025@oralclip2025...');
     console.log('⌨️  Atalhos: Espaço=play/pause | ←→=seek | ↑↓=volume | N/P=faixa | M=mudo | V=som do vídeo | F=tela cheia | H=ocultar UI');
 })();
 </script>
